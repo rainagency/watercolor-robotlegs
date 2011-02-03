@@ -82,7 +82,7 @@ package watercolor.controller.mediators
 			// if there is text inside of the text group then update the selection box
 			// if (TextGroup(element).lettersByIndex.length > 0) {
 			if (TextGroup(element).text.length > 0) {
-				model.selectionManager.updateSelection(false, true);
+				model.selectionManager.updateSelection(false, true, true);
 
 			// else turn off the selection box
 			} else {
