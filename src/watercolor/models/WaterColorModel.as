@@ -1,5 +1,7 @@
 package watercolor.models
 {
+	import mx.collections.ArrayCollection;
+	
 	import org.robotlegs.mvcs.Actor;
 	
 	import watercolor.elements.components.Workarea;
@@ -61,6 +63,29 @@ package watercolor.models
 			_workAreaDPI = value;
 		}
 		
+		public var rulerUnits:ArrayCollection = new ArrayCollection([
+			new RulerUnit(72, "Inches", "in", 3), 
+			new RulerUnit(9/3.175, "Millimeters", "mm", 1), 
+			new RulerUnit(9/0.3175, "Centimeters", "cm", 2), 
+			new RulerUnit(12, "Pica", "pc", 2), 
+			new RulerUnit(1, "Points", "pt", 1)
+		]);
+		
+		private var _workAreaRulerUnit:RulerUnit = RulerUnit(rulerUnits[0]);
+
+		public function get workAreaRulerUnit():RulerUnit
+		{
+			return _workAreaRulerUnit;
+		}
+
+		public function set workAreaRulerUnit(value:RulerUnit):void
+		{
+			_workAreaRulerUnit = value;
+			// dispatch this event to indicate that the ruler units have been set or changed
+			eventDispatcher.dispatchEvent( new ModelEvent( ModelEvent.RULERUNIT_UPDATED ));
+		}
+		
+
 
 		/**
 		 * 
