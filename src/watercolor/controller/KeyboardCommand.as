@@ -103,7 +103,10 @@ package watercolor.controller
 			else if ( event.keyCode == KeyboardCommand.BACKSPACE || event.keyCode == KeyboardCommand.DELETE ) 
 			{
 				// Delete
-				dispatch( new ElementEvent( ElementEvent.REMOVE, waterColorModel.selectionManager.elements ));
+				if (waterColorModel.selectionManager)
+				{
+					dispatch( new ElementEvent( ElementEvent.REMOVE, waterColorModel.selectionManager.elements ));
+				}
 			}
 			else if ( event.keyCode == KeyboardCommand.ESCAPE ) // Exit out of Isolation Mode
 			{
