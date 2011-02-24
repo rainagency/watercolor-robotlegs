@@ -277,7 +277,8 @@ package watercolor.controller.mediators
 							resetSelectionRect();
 							
 							// if the user hasn't clicked over an element or a selection box and if they are not holding the ctrl key
-							if(!workArea.selectionLayer.transformLayer.isPointInsideOfElement(initialDown) && !event.ctrlKey)
+							if(!workArea.selectionLayer.transformLayer.isPointInsideOfElement(
+								initialDown) && !event.ctrlKey && !event.shiftKey)
 							{
 								// listen for mouse move and mouse up for drawing the drag and select rectangle
 								workArea.stage.addEventListener(MouseEvent.MOUSE_MOVE, drawSelectionRect, false, 0, true);
