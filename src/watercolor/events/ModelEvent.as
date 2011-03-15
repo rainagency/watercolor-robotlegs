@@ -18,9 +18,14 @@ package watercolor.events
 
 		public static const RULERUNIT_UPDATED:String = "eventRulerUnitUpdated";
 
+		public static const HISTORY_MANAGER_CHANGING:String = 'evenHistoryManagerChanging';
+
 		public static const HISTORY_MANAGER_CHANGED:String = "eventHistoryManagerChanged";
 
-
+		public static const SELECTION_MANAGER_CHANGED:String = 'selectionManagerChanged';
+		
+		public static const SELECTION_MANAGER_CHANGING:String = 'selectionManagerChanging';
+		
 		/**
 		 *
 		 * @param type

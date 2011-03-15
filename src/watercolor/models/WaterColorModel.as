@@ -113,8 +113,12 @@ package watercolor.models
 		 */
 		public function set history( value:HistoryManager ):void
 		{
-			_history = value;
-			eventDispatcher.dispatchEvent( new ModelEvent( ModelEvent.HISTORY_MANAGER_CHANGED ));
+			if (_history != value)
+			{
+				dispatch(new ModelEvent(ModelEvent.HISTORY_MANAGER_CHANGING));
+				_history = value;
+				eventDispatcher.dispatchEvent(new ModelEvent(ModelEvent.HISTORY_MANAGER_CHANGED));
+			}
 		}
 
 
@@ -137,7 +141,12 @@ package watercolor.models
 		 */
 		public function set selectionManager( value:SelectionManager ):void
 		{
-			_selection = value;
+			if (_selection != value)
+			{
+				dispatch(new ModelEvent(ModelEvent.SELECTION_MANAGER_CHANGING));
+				_selection = value;
+				dispatch(new ModelEvent(ModelEvent.SELECTION_MANAGER_CHANGED));
+			}
 		}
 
 
