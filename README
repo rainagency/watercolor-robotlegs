@@ -1,0 +1,5 @@
+To install the necessary maven dependencies please run :
+
+cd libs
+./install.sh
+

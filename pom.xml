@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>watercolor</groupId>
+    <artifactId>watercolor-robotlegs</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>swc</packaging>
+
+    <name>Watercolor Robotlegs</name>
+
+    <properties>
+        <flex.version>4.1.0.16076</flex.version>
+        <flexunit.version>4.1-RC2</flexunit.version>
+        <robotlegs.version>1.1.2</robotlegs.version>
+        <as3crypto.version>1.3</as3crypto.version>
+    </properties>
+
+    <build>
+        <sourceDirectory>src/main/flex</sourceDirectory>
+        <testSourceDirectory>src/test/flex</testSourceDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.sonatype.flexmojos</groupId>
+                <artifactId>flexmojos-maven-plugin</artifactId>
+                <version>3.9</version>
+                <extensions>true</extensions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.adobe.flex</groupId>
+                        <artifactId>compiler</artifactId>
+                        <version>${flex.version}</version>
+                        <type>pom</type>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>watercolor</groupId>
+            <artifactId>watercolor</artifactId>
+            <version>${project.version}</version>
+            <type>swc</type>
+        </dependency>
+        <dependency>
+            <groupId>com.adobe.flexunit</groupId>
+            <artifactId>flexunit</artifactId>
+            <version>${flexunit.version}</version>
+            <type>swc</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.robotlegs</groupId>
+            <artifactId>robotlegs-framework</artifactId>
+            <version>${robotlegs.version}</version>
+            <type>swc</type>
+        </dependency>
+        <dependency>
+            <groupId>com.hurlant</groupId>
+            <artifactId>as3crypto</artifactId>
+            <version>${as3crypto.version}</version>
+            <type>swc</type>
+        </dependency>
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>flex-mojos-repository</id>
+            <url>http://repository.sonatype.org/content/groups/flexgroup</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <!-- flexunit -->
+        <repository>
+            <id>cairngorm3-repository</id>
+            <url>http://opensource.adobe.com/svn/opensource/cairngorm3/maven-repository</url>
+        </repository>
+        <!-- as3crypto -->
+        <repository>
+			<id>mlepicki-maven-repository</id>
+			<url>http://mlepicki.github.com/maven-repository/repository</url>
+		</repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>flex-mojos-repository</id>
+            <url>http://repository.sonatype.org/content/groups/flexgroup</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <profiles>
+        <profile><!--https://docs.sonatype.org/pages/viewpage.action?pageId=2949459-->
+            <id>m2e</id>
+            <activation>
+                <property>
+                    <name>m2e.version</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.maven.ide.eclipse</groupId>
+                        <artifactId>lifecycle-mapping</artifactId>
+                        <version>0.9.9-SNAPSHOT</version>
+                        <configuration>
+                            <mappingId>customizable</mappingId>
+                            <configurators>
+                                <configurator id='org.maven.ide.eclipse.configuration.flex.configurator' />
+                            </configurators>
+                            <mojoExecutions>
+                                <mojoExecution>org.apache.maven.plugins:maven-resources-plugin::</mojoExecution>
+                            </mojoExecutions>
+                        </configuration>
+                    </plugin>
+                </plugins>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-resources-plugin</artifactId>
+                            <version>2.4</version>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+    </profiles>
+
+</project>
