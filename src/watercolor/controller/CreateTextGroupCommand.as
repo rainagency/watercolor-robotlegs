@@ -2,7 +2,6 @@ package watercolor.controller
 {
 	import flash.display.DisplayObject;
 	import flash.geom.Point;
-	import flash.geom.Rectangle;
 	
 	import org.robotlegs.mvcs.Command;
 	
@@ -10,7 +9,6 @@ package watercolor.controller
 	import watercolor.commands.vo.Position;
 	import watercolor.elements.TextGroup;
 	import watercolor.events.CreateTextGroupEvent;
-	import watercolor.events.SelectedTextGroupEvent;
 	import watercolor.events.TextGroupCreatedEvent;
 	import watercolor.models.WaterColorModel;
 	import watercolor.utils.ExecuteUtil;

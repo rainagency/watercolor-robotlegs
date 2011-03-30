@@ -2,8 +2,6 @@ package watercolor.events
 {
 	import flash.events.Event;
 	
-	import mx.core.IVisualElementContainer;
-	
 	import watercolor.elements.interfaces.IElementContainer;
 	import watercolor.elements.interfaces.ITextGroup;
 
@@ -13,7 +11,6 @@ package watercolor.events
 	 */
 	public class CreateTextGroupEvent extends Event
 	{
-		
 		/**
 		 * Event for creating a text group
 		 * @default 

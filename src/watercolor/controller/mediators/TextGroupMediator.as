@@ -1,18 +1,8 @@
 package watercolor.controller.mediators
 {
-	import flash.events.Event;
-	import flash.events.MouseEvent;
-	
-	import mx.core.mx_internal;
-	
-	import org.robotlegs.base.EventMap;
-	
-	import watercolor.elements.Element;
-	import watercolor.elements.Path;
 	import watercolor.elements.TextGroup;
 	import watercolor.events.ElementSelectionEvent;
 	import watercolor.events.SelectedTextGroupEvent;
-	import watercolor.events.SelectionManagerEvent;
 	import watercolor.events.TextGroupEvent;
 	
 	/**
@@ -81,21 +71,10 @@ package watercolor.controller.mediators
 			
 			// if there is text inside of the text group then update the selection box
 			// if (TextGroup(element).lettersByIndex.length > 0) {
-			if (TextGroup(element).text.length > 0) {
+			if (TextGroup(element).text.length > 0) 
+			{
 				model.selectionManager.updateSelection(false, true, true);
-
-			// else turn off the selection box
-			} else {
-				
-				if (model.selectionManager.elements.indexOf(element) != -1)
-				{
-					model.selectionManager.removeElement(element);
-				}
-				else
-				{
-					model.selectionManager.clear();
-				}
-			}
+			} 
 		}
 		
 		/**

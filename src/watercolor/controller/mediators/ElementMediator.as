@@ -45,7 +45,7 @@ package watercolor.controller.mediators
 		{
 			if( element.mouseEnabled )
 			{
-				eventMap.mapListener( element, MouseEvent.MOUSE_DOWN, handleItemSelected );
+				eventMap.mapListener( element, MouseEvent.MOUSE_DOWN, handleItemClicked );
 			}
 		}
 
@@ -54,7 +54,7 @@ package watercolor.controller.mediators
 		 * Function to call when an element has been clicked on
 		 * @param event The mouse click event
 		 */
-		protected function handleItemSelected( event:MouseEvent ):void
+		protected function handleItemClicked( event:MouseEvent ):void
 		{
 			element.setFocus();
 			
