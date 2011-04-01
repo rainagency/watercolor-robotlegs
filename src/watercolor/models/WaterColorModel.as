@@ -80,9 +80,12 @@ package watercolor.models
 
 		public function set workAreaRulerUnit(value:RulerUnit):void
 		{
-			_workAreaRulerUnit = value;
-			// dispatch this event to indicate that the ruler units have been set or changed
-			eventDispatcher.dispatchEvent( new ModelEvent( ModelEvent.RULERUNIT_UPDATED ));
+			if (_workAreaRulerUnit != value)
+			{
+				_workAreaRulerUnit = value;
+				// dispatch this event to indicate that the ruler units have been set or changed
+				eventDispatcher.dispatchEvent( new ModelEvent( ModelEvent.RULERUNIT_UPDATED ));
+			};
 		}
 		
 
