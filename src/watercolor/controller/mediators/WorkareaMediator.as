@@ -1,6 +1,5 @@
 package watercolor.controller.mediators
 {
-	import flash.display.BitmapData;
 	import flash.display.BlendMode;
 	import flash.display.CapsStyle;
 	import flash.display.JointStyle;
@@ -8,7 +7,6 @@ package watercolor.controller.mediators
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
-	import flash.geom.Matrix;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	
@@ -47,7 +45,6 @@ package watercolor.controller.mediators
 	import watercolor.utils.CoordinateUtils;
 	import watercolor.utils.ExecuteUtil;
 	import watercolor.utils.LayerUtil;
-	import watercolor.utils.MatrixUtil;
 	import watercolor.utils.VisualElementUtil;
 	
 	
