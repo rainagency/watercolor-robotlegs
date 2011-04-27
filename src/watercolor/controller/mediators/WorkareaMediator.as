@@ -91,7 +91,7 @@ package watercolor.controller.mediators
 		 */
 		protected var selectedElements:Vector.<Element>;
 		
-		protected var keyDown:Object = {};
+		public var keyDown:Object = {};
 		
 		
 		protected var pressPoint:Point;

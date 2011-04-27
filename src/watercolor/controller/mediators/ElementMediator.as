@@ -45,7 +45,7 @@ package watercolor.controller.mediators
 		{
 			if( element.mouseEnabled )
 			{
-				eventMap.mapListener( element, MouseEvent.MOUSE_DOWN, handleItemClicked );
+				eventMap.mapListener( element, MouseEvent.MOUSE_DOWN, handleElementMouseDown );
 			}
 		}
 
@@ -54,8 +54,15 @@ package watercolor.controller.mediators
 		 * Function to call when an element has been clicked on
 		 * @param event The mouse click event
 		 */
-		protected function handleItemClicked( event:MouseEvent ):void
+		protected function handleElementMouseDown( event:MouseEvent ):void
 		{
+			// If spacebar is currently pressed, do not select element.  Spacebar means we are panning.
+			var workAreaMediator:WorkareaMediator = WorkareaMediator(mediatorMap.retrieveMediator(model.workArea));
+			if (workAreaMediator.keyDown[ 32 ])
+			{
+				return;
+			}
+			
 			element.setFocus();
 			
 			// Set CurrentLayer to this element's layer
