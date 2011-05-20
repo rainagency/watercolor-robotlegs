@@ -24,14 +24,13 @@ package watercolor.controller
 		 */
 		public var model:WaterColorModel;
 
+		protected var exitedIsolation:Boolean = false;
 
 		/**
 		 * execute: Redo a command in the history manager
 		 */
 		override public function execute():void
 		{
-			var exitedIsolation:Boolean = false;
-
 			// check if we are in isolation mode
 			if(model.workArea.isolationLayer && model.workArea.isolationLayer.elementLength() > 0)
 			{
@@ -64,7 +63,8 @@ package watercolor.controller
 			{
 				model.workArea.isolationLayer.enter();
 				
-				if (!(model.workArea.isolationLayer.firstIsolatedElement.parent && 
+				if (model.workArea.isolationLayer.firstIsolatedElement && 
+					!(model.workArea.isolationLayer.firstIsolatedElement.parent && 
 					model.workArea.isolationLayer.firstIsolatedElement.parent is Layer && 
 					model.workArea.isolationLayer.firstIsolatedElement.parent.parent))
 				{
