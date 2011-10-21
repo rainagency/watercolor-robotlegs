@@ -64,11 +64,11 @@ package watercolor.models
 		}
 		
 		public var rulerUnits:ArrayCollection = new ArrayCollection([
-			new RulerUnit(72, "Inches", "in", 3), 
-			new RulerUnit(9/3.175, "Millimeters", "mm", 1), 
-			new RulerUnit(9/0.3175, "Centimeters", "cm", 2), 
-			new RulerUnit(12, "Pica", "pc", 2), 
-			new RulerUnit(1, "Points", "pt", 1)
+			new RulerUnit(72, "Inches", "in", 3, 0.25, 12, 0.125), 
+			new RulerUnit(9/3.175, "Millimeters", "mm", 1, 5, 300, 1), 
+			new RulerUnit(9/0.3175, "Centimeters", "cm", 2, 0.5, 30, 0.1), 
+			new RulerUnit(12, "Pica", "pc", 2, 1.5, 72, 0.5), 
+			new RulerUnit(1, "Points", "pt", 1, 20, 864, 5)
 		]);
 		
 		private var _workAreaRulerUnit:RulerUnit = RulerUnit(rulerUnits[0]);
