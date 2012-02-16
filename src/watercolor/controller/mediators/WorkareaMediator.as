@@ -775,7 +775,7 @@ package watercolor.controller.mediators
 			{
 				
 				// enter isolation mode for the element in the event
-				workArea.isolationLayer.enterIsolation(event.element);
+				workArea.isolationLayer.enterIsolation(event.element, model.workAreaCatridgeSelected);
 				
 				// disable the content group on the workarea so that all children will be non mouse enabled
 				// and for achieving the fade out effect

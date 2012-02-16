@@ -63,6 +63,26 @@ package watercolor.models
 			_workAreaDPI = value;
 		}
 		
+		private var _workAreaCatridgeSelected:String = "";
+		
+		/**
+		 * 
+		 * @return 
+		 */
+		public function get workAreaCatridgeSelected():String
+		{
+			return _workAreaCatridgeSelected;
+		}
+		
+		/**
+		 * 
+		 * @param value
+		 */
+		public function set workAreaCatridgeSelected(value:String):void
+		{
+			_workAreaCatridgeSelected = value;
+		}
+
 		public var rulerUnits:ArrayCollection = new ArrayCollection([
 			new RulerUnit(72, "Inches", "in", 3, 0.25, 12, 0.125), 
 			new RulerUnit(9/3.175, "Millimeters", "mm", 1, 5, 300, 1), 
