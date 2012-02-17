@@ -17,6 +17,8 @@ package watercolor.events
 		public static const WORKAREA_UPDATED:String = "eventWorkAreaUpdated";
 
 		public static const RULERUNIT_UPDATED:String = "eventRulerUnitUpdated";
+		
+		public static const RULERUNIT_VALUE_UPDATED:String = "eventRulerUnitValueUpdated";
 
 		public static const HISTORY_MANAGER_CHANGED:String = "eventHistoryManagerChanged";
 
