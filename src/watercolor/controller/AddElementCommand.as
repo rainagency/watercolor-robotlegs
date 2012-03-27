@@ -62,7 +62,7 @@ package watercolor.controller
 					if (event.position)
 					{
 						var p:Point = CoordinateUtils.localToLocal(model.workArea.isolationLayer.contentGroup, model.workArea.isolationLayer, new Point(event.position.x, event.position.y));						
-						p = CoordinateUtils.localToLocal(model.workArea.isolationLayer, model.workArea.isolationLayer.contentGroup, new Point(( p.x - ( element.width ) / 2 ), ( p.y - ( element.height ) / 2 )));
+						p = CoordinateUtils.localToLocal(model.workArea.isolationLayer, model.workArea.isolationLayer.contentGroup, new Point(( p.x - ( element.widthAfterTransform ) / 2 ), ( p.y - ( element.heightAfterTransform ) / 2 )));
 						
 						element.x = p.x;
 						element.y = p.y;
@@ -71,14 +71,14 @@ package watercolor.controller
 				else
 				{
 					if (event.position)
-					{					
+					{	
 						// set the center of the glyph to be right where the user let go of the mouse
-						element.x = ( event.position.x - ( element.width ) / 2 );
-						element.y = ( event.position.y - ( element.height ) / 2 );
+						element.x = ( event.position.x - ( element.widthAfterTransform ) / 2 );
+						element.y = ( event.position.y - ( element.heightAfterTransform ) / 2 );
+						
 					}
 				}
 			}
-			
 			//Add to history, and execute.
 			model.history.addCommand( commandVO );
 			ExecuteUtil.execute( commandVO );
