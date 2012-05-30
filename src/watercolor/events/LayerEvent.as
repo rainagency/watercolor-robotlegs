@@ -39,6 +39,15 @@ package watercolor.events
 		 */
 		public static const PROPERTY_CHANGE:String = "changeLayer";
 
+		/**
+		 * Event for showing the layer tabs.
+		 */
+		public static const SHOW_TAB_LAYER:String = "showTabLayer";
+		
+		/**
+		 * Event for hiding the layer tabs.
+		 */
+		public static const HIDE_TAB_LAYER:String = "hideTabLayer";
 
 		/**
 		 * Worearea to add layer to.
