@@ -38,7 +38,7 @@ package watercolor.controller
 		override public function execute():void
 		{
 			//Generate WaterColor CommandVO.
-			var createVO:CreateVO = new CreateVO( event.layer, new Position( event.workArea, event.workArea.numElements ));
+			var createVO:CreateVO = new CreateVO( event.layer, new Position( event.workArea, 0 ));
 
 			//Add to history, and execute.
 			model.history.addCommand( createVO );
