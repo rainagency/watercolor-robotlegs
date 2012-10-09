@@ -1,16 +1,21 @@
 package watercolor.controller
 {
+	import flash.text.TextFormat;
 	import flash.text.engine.FontPosture;
 	import flash.text.engine.FontWeight;
+	import flash.text.engine.TextBaseline;
 	
+	import flashx.textLayout.formats.TextAlign;
 	import flashx.textLayout.formats.TextLayoutFormat;
 	
 	import org.robotlegs.mvcs.Command;
 	
 	import spark.components.TextArea;
 	
+	import watercolor.commands.vo.TextFormatVO;
 	import watercolor.events.TextAreaEvent;
 	import watercolor.models.WaterColorModel;
+	import watercolor.utils.ExecuteUtil;
 	
 	/**
 	 * 
@@ -39,6 +44,7 @@ package watercolor.controller
 				var ta:TextArea = event.textArea.textInput;
 				
 				var txtLayFmt:TextLayoutFormat = ta.getFormatOfRange(null, ta.selectionAnchorPosition, ta.selectionActivePosition);
+				var oldTxtLayFmt:TextLayoutFormat = ta.getFormatOfRange(null, ta.selectionAnchorPosition, ta.selectionActivePosition);
 				
 				switch(event.type) {
 				
@@ -60,9 +66,31 @@ package watercolor.controller
 						if (event.args.length > 0) {
 							txtLayFmt.color = event.args[0];
 						}
+						break;
+					
+					case TextAreaEvent.EVENT_ALIGN_LEFT_TEXT:
+						txtLayFmt.textAlign = TextAlign.LEFT;
+						break;
+					
+					case TextAreaEvent.EVENT_ALIGN_MIDDLE_TEXT:
+						txtLayFmt.textAlign = TextAlign.CENTER;
+						break;
+					
+					case TextAreaEvent.EVENT_ALIGN_RIGHT_TEXT:
+						txtLayFmt.textAlign = TextAlign.RIGHT;
+						break;
 				}
 				
-				ta.setFormatOfRange(txtLayFmt, ta.selectionAnchorPosition, ta.selectionActivePosition);
+				var textFormatVO:TextFormatVO = new TextFormatVO();
+				textFormatVO.element = event.textArea;
+				textFormatVO.start = ta.selectionAnchorPosition;
+				textFormatVO.end = ta.selectionActivePosition;
+				textFormatVO.oldFmt = oldTxtLayFmt;
+				textFormatVO.newFmt = txtLayFmt;
+				
+				//Add to history, and execute.
+				wcModel.history.addCommand( textFormatVO );
+				ExecuteUtil.execute( textFormatVO );
 				
 				event.textArea.textInput.setFocus();
 				event.textArea.textInput.callLater(updateSelection);

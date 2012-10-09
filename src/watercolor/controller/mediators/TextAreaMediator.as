@@ -1,17 +1,30 @@
 package watercolor.controller.mediators
 {
 	import flash.events.MouseEvent;
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
 	
 	import spark.events.TextOperationEvent;
 	
+	import watercolor.commands.vo.PropertyVO;
 	import watercolor.elements.Text;
 	import watercolor.events.TextAreaEvent;
+	import watercolor.models.WaterColorModel;
 	
 	public class TextAreaMediator extends ElementMediator
 	{
+		private var timer:Timer;
+		private var oldText:String = "";
+		
+		[Inject]
+		public var wcModel:WaterColorModel;
+		
 		override public function onRegister():void
 		{
 			super.onRegister();
+			
+			timer = new Timer(2000, 1);
+			timer.addEventListener(TimerEvent.TIMER, onTimerComplete);
 			
 			if (element is Text) {
 				eventMap.mapListener(Text(element).textInput, TextOperationEvent.CHANGE, onTextChange);
@@ -21,6 +34,9 @@ package watercolor.controller.mediators
 		
 		override public function onRemove():void
 		{
+			timer.stop();
+			timer.removeEventListener(TimerEvent.TIMER, onTimerComplete);
+			
 			if (element is Text) {
 				eventMap.unmapListener(Text(element).textInput, TextOperationEvent.CHANGE, onTextChange);
 				eventMap.unmapListener(Text(element).textInput, MouseEvent.CLICK, onMouseClick);
@@ -28,6 +44,10 @@ package watercolor.controller.mediators
 		}
 		
 		protected function onTextChange(event:TextOperationEvent):void {
+			
+			timer.stop();
+			timer.start();
+			
 			element.callLater(updateSelection);
 		}
 		
@@ -37,6 +57,20 @@ package watercolor.controller.mediators
 		
 		protected function onMouseClick(event:MouseEvent):void {
 			dispatch(new TextAreaEvent(TextAreaEvent.EVENT_TEXT_AREA_CLICK, Text(element)));
+		}
+		
+		protected function onTimerComplete(event:TimerEvent):void {
+			
+			var prop:PropertyVO = new PropertyVO();
+			prop.element = element;
+			prop.originalProperties = new Object();
+			prop.originalProperties.text = oldText;
+			prop.newProperties = new Object();
+			prop.newProperties.text = Text(element).text;
+			
+			wcModel.history.addCommand(prop);
+			
+			oldText = Text(element).text;
 		}
 		
 		/**
