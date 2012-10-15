@@ -8,7 +8,7 @@ package watercolor.events
 	 * 
 	 * @author Jeremiah
 	 */
-	public class TextAreaEvent extends Event
+	public class StyleTextAreaEvent extends Event
 	{
 		/**
 		 * Event for
@@ -16,7 +16,11 @@ package watercolor.events
 		 */
 		public static const EVENT_BOLD_TEXT:String = "eventBoldTextArea";
 		
+		public static const EVENT_UN_BOLD_TEXT:String = "eventUnBoldTextArea";
+		
 		public static const EVENT_ITALIC_TEXT:String = "eventItalicTextArea";
+		
+		public static const EVENT_UN_ITALIC_TEXT:String = "eventUnItalicTextArea";
 		
 		public static const EVENT_SIZE_TEXT:String = "eventSizeTextArea";
 		
@@ -27,6 +31,8 @@ package watercolor.events
 		public static const EVENT_ALIGN_MIDDLE_TEXT:String = "eventAlignMiddleText";
 		
 		public static const EVENT_ALIGN_RIGHT_TEXT:String = "eventAlignRightText";
+		
+		public static const EVENT_LIST_TEXT:String = "eventListText";
 		
 		public static const EVENT_TEXT_AREA_CLICK:String = "eventTextAreaClick";
 		
@@ -40,7 +46,7 @@ package watercolor.events
 		 * @param bubbles
 		 * @param cancelable
 		 */
-		public function TextAreaEvent(type:String, textArea:Text, ...args)
+		public function StyleTextAreaEvent(type:String, textArea:Text, ...args)
 		{
 			this.textArea = textArea;
 			this.args = args;
@@ -53,7 +59,7 @@ package watercolor.events
 		 */
 		override public function clone():Event
 		{
-			return new TextAreaEvent(this.type, this.textArea, this.args);
+			return new StyleTextAreaEvent(this.type, this.textArea, this.args);
 		}
 	}
 }

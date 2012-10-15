@@ -2,6 +2,7 @@ package watercolor.controller.mediators
 {
 	import flash.display.BlendMode;
 	import flash.display.CapsStyle;
+	import flash.display.Graphics;
 	import flash.display.JointStyle;
 	import flash.display.LineScaleMode;
 	import flash.events.Event;

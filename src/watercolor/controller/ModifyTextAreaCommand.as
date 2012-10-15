@@ -1,21 +1,27 @@
 package watercolor.controller
 {
-	import flash.text.TextFormat;
 	import flash.text.engine.FontPosture;
 	import flash.text.engine.FontWeight;
-	import flash.text.engine.TextBaseline;
 	
+	import flashx.textLayout.elements.ListElement;
+	import flashx.textLayout.elements.ListItemElement;
+	import flashx.textLayout.elements.ParagraphElement;
+	import flashx.textLayout.elements.TextFlow;
+	import flashx.textLayout.formats.ListStyleType;
 	import flashx.textLayout.formats.TextAlign;
-	import flashx.textLayout.formats.TextLayoutFormat;
+	
+	import mx.core.UIComponent;
 	
 	import org.robotlegs.mvcs.Command;
 	
-	import spark.components.TextArea;
+	import spark.components.RichEditableText;
 	
+	import watercolor.commands.vo.GroupCommandVO;
 	import watercolor.commands.vo.TextFormatVO;
-	import watercolor.events.TextAreaEvent;
+	import watercolor.events.StyleTextAreaEvent;
 	import watercolor.models.WaterColorModel;
 	import watercolor.utils.ExecuteUtil;
+	import watercolor.utils.TextLayoutFormatUtil;
 	
 	/**
 	 * 
@@ -28,7 +34,7 @@ package watercolor.controller
 		 * 
 		 * @default 
 		 */
-		public var event:TextAreaEvent;
+		public var event:StyleTextAreaEvent;
 		
 		
 		[Inject]
@@ -41,65 +47,79 @@ package watercolor.controller
 			
 			if (event.textArea) {
 			
-				var ta:TextArea = event.textArea.textInput;
+				var txtLayFmtArray:Vector.<TextFormatVO> = TextLayoutFormatUtil.grabTextRanges(event.textArea, event.textArea.textInput.selectionAnchorPosition, event.textArea.textInput.selectionActivePosition);
 				
-				var txtLayFmt:TextLayoutFormat = ta.getFormatOfRange(null, ta.selectionAnchorPosition, ta.selectionActivePosition);
-				var oldTxtLayFmt:TextLayoutFormat = ta.getFormatOfRange(null, ta.selectionAnchorPosition, ta.selectionActivePosition);
+				for each (var txtLayFmt:TextFormatVO in txtLayFmtArray) { 
 				
-				switch(event.type) {
-				
-					case TextAreaEvent.EVENT_BOLD_TEXT:
-						txtLayFmt.fontWeight = (txtLayFmt.fontWeight == FontWeight.BOLD) ? FontWeight.NORMAL : FontWeight.BOLD;
-						break;
+					switch(event.type) {
 					
-					case TextAreaEvent.EVENT_ITALIC_TEXT:
-						txtLayFmt.fontStyle = (txtLayFmt.fontStyle == FontPosture.ITALIC) ? FontPosture.NORMAL : FontPosture.ITALIC;
-						break;
-					
-					case TextAreaEvent.EVENT_SIZE_TEXT:
-						if (event.args.length > 0) {
-							txtLayFmt.fontSize = event.args[0];
-						}
-						break;
-					
-					case TextAreaEvent.EVENT_COLOR_TEXT:
-						if (event.args.length > 0) {
-							txtLayFmt.color = event.args[0];
-						}
-						break;
-					
-					case TextAreaEvent.EVENT_ALIGN_LEFT_TEXT:
-						txtLayFmt.textAlign = TextAlign.LEFT;
-						break;
-					
-					case TextAreaEvent.EVENT_ALIGN_MIDDLE_TEXT:
-						txtLayFmt.textAlign = TextAlign.CENTER;
-						break;
-					
-					case TextAreaEvent.EVENT_ALIGN_RIGHT_TEXT:
-						txtLayFmt.textAlign = TextAlign.RIGHT;
-						break;
+						case StyleTextAreaEvent.EVENT_BOLD_TEXT:
+							txtLayFmt.newFmt.fontWeight = FontWeight.BOLD;
+							break;
+						
+						case StyleTextAreaEvent.EVENT_ITALIC_TEXT:
+							txtLayFmt.newFmt.fontStyle = FontPosture.ITALIC;
+							break;
+						
+						case StyleTextAreaEvent.EVENT_UN_BOLD_TEXT:
+							txtLayFmt.newFmt.fontWeight = FontWeight.NORMAL;
+							break;
+						
+						case StyleTextAreaEvent.EVENT_UN_ITALIC_TEXT:
+							txtLayFmt.newFmt.fontStyle = FontPosture.NORMAL;
+							break;
+						
+						case StyleTextAreaEvent.EVENT_SIZE_TEXT:
+							if (event.args.length > 0) {
+								txtLayFmt.newFmt.fontSize = event.args[0];
+							}
+							break;
+						
+						case StyleTextAreaEvent.EVENT_COLOR_TEXT:
+							if (event.args.length > 0) {
+								txtLayFmt.newFmt.color = event.args[0];
+							}
+							break;
+						
+						case StyleTextAreaEvent.EVENT_ALIGN_LEFT_TEXT:
+							txtLayFmt.newFmt.textAlign = TextAlign.LEFT;
+							break;
+						
+						case StyleTextAreaEvent.EVENT_ALIGN_MIDDLE_TEXT:
+							txtLayFmt.newFmt.textAlign = TextAlign.CENTER;
+							break;
+						
+						case StyleTextAreaEvent.EVENT_ALIGN_RIGHT_TEXT:
+							txtLayFmt.newFmt.textAlign = TextAlign.RIGHT;
+							break;
+						
+					}
 				}
 				
-				var textFormatVO:TextFormatVO = new TextFormatVO();
-				textFormatVO.element = event.textArea;
-				textFormatVO.start = ta.selectionAnchorPosition;
-				textFormatVO.end = ta.selectionActivePosition;
-				textFormatVO.oldFmt = oldTxtLayFmt;
-				textFormatVO.newFmt = txtLayFmt;
+				var group:GroupCommandVO = new GroupCommandVO()
 				
-				//Add to history, and execute.
-				wcModel.history.addCommand( textFormatVO );
-				ExecuteUtil.execute( textFormatVO );
+				for each (var textFormatVO:TextFormatVO in txtLayFmtArray) {
+					group.commands.push(textFormatVO);
+				}
+				
+				if (!(group.commands.length == 1) || !(group.commands[0] is TextFormatVO) || !(TextFormatVO(group.commands[0]).start == TextFormatVO(group.commands[0]).end)) {
+					
+					//Add to history
+					wcModel.history.addCommand( group );
+					
+				} 
+				
+				//Now execute.
+				ExecuteUtil.execute( group );
 				
 				event.textArea.textInput.setFocus();
 				event.textArea.textInput.callLater(updateSelection);
+				
 			}
 		}
 		
 		protected function updateSelection():void {
 			wcModel.selectionManager.updateSelection(false, true, true);
 		}
-		
 	}
 }

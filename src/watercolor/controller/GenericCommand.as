@@ -38,7 +38,7 @@ package watercolor.controller
 			}
 			
 			//Update Selection box
-			model.selectionManager.updateSelection();
+			model.selectionManager.updateSelection(false, true, true);
 		}
 	}
 }
