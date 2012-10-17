@@ -222,5 +222,6 @@ package watercolor.controller.mediators
 				model.workArea.selectionLayer.transformLayer.begin( false );
 			}
 		}
+		
 	}
 }
