@@ -5,7 +5,6 @@ package watercolor.controller
 	
 	import org.robotlegs.mvcs.Command;
 	
-	import watercolor.commands.vo.CommandVO;
 	import watercolor.commands.vo.CreateVO;
 	import watercolor.commands.vo.GroupCommandVO;
 	import watercolor.commands.vo.Position;
@@ -14,7 +13,6 @@ package watercolor.controller
 	import watercolor.models.WaterColorModel;
 	import watercolor.utils.CoordinateUtils;
 	import watercolor.utils.ExecuteUtil;
-	import watercolor.utils.MatrixInfo;
 
 
 	/**
