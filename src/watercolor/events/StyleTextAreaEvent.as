@@ -36,6 +36,10 @@ package watercolor.events
 		
 		public static const EVENT_TEXT_AREA_CLICK:String = "eventTextAreaClick";
 		
+		public static const EVENT_TEXT_AREA_ADD_LINK:String = "eventTextAreaAddLink";
+		
+		public static const EVENT_TEXT_AREA_REMOVE_LINK:String = "eventTextAreaRemoveLink";
+		
 		public var textArea:Text;
 		
 		public var args:Array;
