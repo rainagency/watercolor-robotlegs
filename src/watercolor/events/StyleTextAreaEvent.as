@@ -24,6 +24,10 @@ package watercolor.events
 		
 		public static const EVENT_SIZE_TEXT:String = "eventSizeTextArea";
 		
+		public static const EVENT_UNDERLINE_TEXT:String = "eventUnderlineTextArea";
+		
+		public static const EVENT_UN_UNDERLINE_TEXT:String = "eventUnUnderlineTextArea";
+		
 		public static const EVENT_COLOR_TEXT:String = "eventColorTextArea";
 		
 		public static const EVENT_ALIGN_LEFT_TEXT:String = "eventAlignLeftText";

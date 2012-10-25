@@ -6,6 +6,7 @@ package watercolor.controller
 	import flashx.textLayout.elements.LinkElement;
 	import flashx.textLayout.elements.SpanElement;
 	import flashx.textLayout.elements.TextFlow;
+	import flashx.textLayout.formats.TextDecoration;
 	
 	import org.robotlegs.mvcs.Command;
 	
@@ -98,12 +99,15 @@ package watercolor.controller
 								
 								linkIndex = startLeaf.parent.getChildIndex(newSpanStart);
 								link.addChild(newSpanStart);
+								newSpanStart.textDecoration = TextDecoration.UNDERLINE;
 								
 								for each (elm in spanList) {
 									link.addChild(elm);
+									elm.textDecoration = TextDecoration.UNDERLINE;
 								}
 								
 								link.addChild(endLeaf);
+								endLeaf.textDecoration = TextDecoration.UNDERLINE;
 								
 								startLeaf.parent.addChildAt(linkIndex, link);
 								
@@ -124,6 +128,8 @@ package watercolor.controller
 								
 								linkIndex = startLeaf.parent.getChildIndex(newSpanStart);
 								link.addChild(newSpanStart);
+								
+								newSpanStart.textDecoration = TextDecoration.UNDERLINE;
 								
 								startLeaf.parent.addChildAt(linkIndex, link);
 								
@@ -147,6 +153,7 @@ package watercolor.controller
 						
 						list = list.reverse();
 						for each (elm in list) {
+							elm.textDecoration = TextDecoration.NONE;
 							parent.addChildAt(index, elm);
 						}
 					}

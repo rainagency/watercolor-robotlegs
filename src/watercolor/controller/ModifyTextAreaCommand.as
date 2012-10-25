@@ -3,18 +3,10 @@ package watercolor.controller
 	import flash.text.engine.FontPosture;
 	import flash.text.engine.FontWeight;
 	
-	import flashx.textLayout.elements.ListElement;
-	import flashx.textLayout.elements.ListItemElement;
-	import flashx.textLayout.elements.ParagraphElement;
-	import flashx.textLayout.elements.TextFlow;
-	import flashx.textLayout.formats.ListStyleType;
 	import flashx.textLayout.formats.TextAlign;
-	
-	import mx.core.UIComponent;
+	import flashx.textLayout.formats.TextDecoration;
 	
 	import org.robotlegs.mvcs.Command;
-	
-	import spark.components.RichEditableText;
 	
 	import watercolor.commands.vo.GroupCommandVO;
 	import watercolor.commands.vo.TextFormatVO;
@@ -59,6 +51,14 @@ package watercolor.controller
 						
 						case StyleTextAreaEvent.EVENT_ITALIC_TEXT:
 							txtLayFmt.newFmt.fontStyle = FontPosture.ITALIC;
+							break;
+						
+						case StyleTextAreaEvent.EVENT_UNDERLINE_TEXT:
+							txtLayFmt.newFmt.textDecoration = TextDecoration.UNDERLINE;
+							break;
+						
+						case StyleTextAreaEvent.EVENT_UN_UNDERLINE_TEXT:
+							txtLayFmt.newFmt.textDecoration = TextDecoration.NONE;
 							break;
 						
 						case StyleTextAreaEvent.EVENT_UN_BOLD_TEXT:
