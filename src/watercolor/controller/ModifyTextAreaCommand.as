@@ -39,7 +39,15 @@ package watercolor.controller
 			
 			if (event.textArea) {
 			
-				var txtLayFmtArray:Vector.<TextFormatVO> = TextLayoutFormatUtil.grabTextRanges(event.textArea, event.textArea.textInput.selectionAnchorPosition, event.textArea.textInput.selectionActivePosition);
+				var start:int = event.textArea.textInput.selectionAnchorPosition;
+				var end:int = event.textArea.textInput.selectionActivePosition;
+				
+				if (start > end) {
+					start = event.textArea.textInput.selectionActivePosition;
+					end = event.textArea.textInput.selectionAnchorPosition;
+				}
+				
+				var txtLayFmtArray:Vector.<TextFormatVO> = TextLayoutFormatUtil.grabTextRanges(event.textArea, start, end);
 				
 				for each (var txtLayFmt:TextFormatVO in txtLayFmtArray) { 
 				
