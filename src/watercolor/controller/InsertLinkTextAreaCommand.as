@@ -54,8 +54,17 @@ package watercolor.controller
 				
 				if (textFlow.flowComposer.numLines > 0) {
 					
-					var startLeaf:FlowLeafElement = textFlow.findLeaf(text.textInput.selectionAnchorPosition);
-					var endLeaf:FlowLeafElement = textFlow.findLeaf(text.textInput.selectionActivePosition);
+					var anchorStart:int = text.textInput.selectionAnchorPosition;
+					var anchorEnd:int = text.textInput.selectionActivePosition;
+					
+					if (anchorStart > anchorEnd) {
+						var anchorTemp:int = anchorStart;
+						anchorStart = anchorEnd;
+						anchorEnd = anchorTemp;
+					}
+					
+					var startLeaf:FlowLeafElement = textFlow.findLeaf(anchorStart);
+					var endLeaf:FlowLeafElement = textFlow.findLeaf(anchorEnd);
 					
 					if (event.type == StyleTextAreaEvent.EVENT_TEXT_AREA_ADD_LINK && event.args.length > 0) {
 					
@@ -88,8 +97,8 @@ package watercolor.controller
 							
 							if (startLeaf != endLeaf) {
 								
-								slStart = text.textInput.selectionAnchorPosition - startLeaf.getElementRelativeStart(textFlow);
-								elStart = text.textInput.selectionActivePosition - endLeaf.getElementRelativeStart(textFlow);
+								slStart = anchorStart - startLeaf.getElementRelativeStart(textFlow);
+								elStart = anchorEnd - endLeaf.getElementRelativeStart(textFlow);
 								
 								newSpanStart = startLeaf.splitAtPosition(slStart) as SpanElement;
 								newSpanEnd = endLeaf.splitAtPosition(elStart) as SpanElement;
@@ -115,12 +124,12 @@ package watercolor.controller
 									elm.parent.removeChild(elm);
 								}
 								
-							} else if (text.textInput.selectionAnchorPosition != text.textInput.selectionActivePosition) {
+							} else if (anchorStart != anchorEnd) {
 								
-								slStart = text.textInput.selectionAnchorPosition - startLeaf.getElementRelativeStart(textFlow);
+								slStart = anchorStart - startLeaf.getElementRelativeStart(textFlow);
 								newSpanStart = startLeaf.splitAtPosition(slStart) as SpanElement;
 								
-								elStart = text.textInput.selectionActivePosition - newSpanStart.getElementRelativeStart(textFlow);
+								elStart = anchorEnd - newSpanStart.getElementRelativeStart(textFlow);
 								newSpanEnd = newSpanStart.splitAtPosition(elStart) as SpanElement;
 								
 								link = new LinkElement();
